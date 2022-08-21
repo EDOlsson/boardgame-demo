@@ -13,10 +13,10 @@ public sealed class BoardgameController : BaseController
     }
 
     [HttpPost]
-    public ActionResult CreateBoardgame(BoardgameForCreate boardgame)
+    public async Task<ActionResult> CreateBoardgame(BoardgameForCreate boardgame)
     {
         var newBoardgame = boardgame.Translate();
-        var createdBoardgame = TheDomainFacade.CreateNewBoardgame(newBoardgame, BoardgameCaller);
+        var createdBoardgame = await TheDomainFacade.CreateNewBoardgameAsync(newBoardgame, BoardgameCaller);
 
         return CreatedAtAction(nameof(GetBoardgame), new { boardgameId = createdBoardgame.Id }, createdBoardgame);
     }

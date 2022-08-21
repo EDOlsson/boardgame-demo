@@ -17,8 +17,8 @@ public sealed class DomainFacade
         _serviceLocator = serviceLocator;
     }
 
-    public BoardgameForGet CreateNewBoardgame(BoardgameForCreate boardgameForCreate, AuthenticatedContext authContext)
-        => TheBoardgameManager.CreateNewBoardgame(boardgameForCreate, authContext);
+    public Task<BoardgameForGet> CreateNewBoardgameAsync(BoardgameForCreate boardgameForCreate, AuthenticatedContext authContext)
+        => TheBoardgameManager.CreateNewBoardgameAsync(boardgameForCreate, authContext);
 
     public IReadOnlyList<BoardgameForGet> GetAllBoardgames(AuthenticatedContext authContext)
         => TheBoardgameManager.GetAllBoardgames(authContext);
