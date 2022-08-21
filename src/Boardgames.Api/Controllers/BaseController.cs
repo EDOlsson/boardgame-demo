@@ -7,8 +7,13 @@ namespace Boardgames.Api.Controllers;
 
 public abstract class BaseController : ControllerBase
 {
-    DomainFacade? _domainFacade;
-    protected DomainFacade TheDomainFacade { get { return _domainFacade ??= new DomainFacade(); } }
+    readonly DomainFacade _domainFacade;
+
+    public BaseController(DomainFacade domainFacade)
+    {
+        _domainFacade = domainFacade;
+    }
+    protected DomainFacade TheDomainFacade => _domainFacade;
 
     protected AuthenticatedContext BoardgameCaller => new ApiAuthenticatedContext();
 }

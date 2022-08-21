@@ -10,7 +10,7 @@ public sealed class DomainFacade
     BoardgameManager? _boardgameManager;
     BoardgameManager TheBoardgameManager { get { return _boardgameManager ??= new BoardgameManager(_serviceLocator); } }
 
-    public DomainFacade() : this(new ProductionServiceLocator()) { }
+    public DomainFacade(IHttpClientFactory httpClientFactory) : this(new ProductionServiceLocator(httpClientFactory)) { }
 
     internal DomainFacade(ServiceLocator serviceLocator)
     {

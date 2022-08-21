@@ -1,4 +1,5 @@
 using Boardgames.Api.Models;
+using Boardgames.DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Boardgames.Api.Controllers;
@@ -7,6 +8,10 @@ namespace Boardgames.Api.Controllers;
 [Route("[controller]")]
 public sealed class BoardgameController : BaseController
 {
+    public BoardgameController(DomainFacade domainFacade) : base(domainFacade)
+    {
+    }
+
     [HttpPost]
     public ActionResult CreateBoardgame(BoardgameForCreate boardgame)
     {
