@@ -6,11 +6,11 @@ sealed class BoardgameGeekGateway
 {
     static readonly Uri _baseUri = new Uri("https://boardgamegeek.com/xmlapi/");
 
-    readonly IHttpClientFactory _httpClientFactory;
+    readonly ServiceLocator _serviceLocator;
 
-    public BoardgameGeekGateway(IHttpClientFactory httpClientFactory)
+    public BoardgameGeekGateway(ServiceLocator serviceLocator)
     {
-        _httpClientFactory = httpClientFactory;
+        _serviceLocator = serviceLocator;
     }
 
     public async Task<string> SearchForGameAsync(string gameName)
@@ -19,7 +19,8 @@ sealed class BoardgameGeekGateway
 
         var uri = new System.Uri(_baseUri, $"search?search={urlEncodedName}");
 
-        var client = _httpClientFactory.CreateClient();
+        var factory = _serviceLocator.CreateHttpClientFactory();
+        var client = factory.CreateClient();
 
         var response = await client.GetAsync(uri);
 

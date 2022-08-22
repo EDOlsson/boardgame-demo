@@ -1,5 +1,8 @@
+using System.Runtime.CompilerServices;
 using Boardgames.DomainLayer.Managers.DataLayer;
 using Boardgames.DomainLayer.Managers.Gateways;
+
+[assembly:InternalsVisibleTo("DomainFacadeTests")]
 
 namespace Boardgames.DomainLayer;
 

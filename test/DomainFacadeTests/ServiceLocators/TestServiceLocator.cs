@@ -1,15 +1,19 @@
+using System.Net.Http;
+using Boardgames.DomainLayer;
 using Boardgames.DomainLayer.Managers.DataLayer;
 using Boardgames.DomainLayer.Managers.Gateways;
+using DomainFacadeTests.TestDoubles.Fakes;
+using DomainFacadeTests.TestMediators;
 
-namespace Boardgames.DomainLayer;
+namespace DomainFacadeTests.ServiceLocators;
 
-class ProductionServiceLocator : ServiceLocator
+sealed class TestServiceLocator : ServiceLocator
 {
-    readonly IHttpClientFactory _httpClientFactory;
+    readonly TestMediator _testMediator;
 
-    public ProductionServiceLocator(IHttpClientFactory httpClientFactory) : base()
+    public TestServiceLocator(TestMediator testMediator)
     {
-        _httpClientFactory = httpClientFactory;
+        _testMediator = testMediator;
     }
 
     protected override BoardgameGeekGateway CreateBoardgameGeekGatewayCore()
@@ -24,6 +28,6 @@ class ProductionServiceLocator : ServiceLocator
 
     protected override IHttpClientFactory CreateHttpClientFactoryCore()
     {
-        return _httpClientFactory;
+        return new FakeHttpClientFactory(_testMediator);
     }
 }
